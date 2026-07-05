@@ -1,0 +1,22 @@
+# Editor / AI tooling
+.claude/
+
+# Simulation build artefacts
+*.vvp
+
+# OS / editor temp
+Thumbs.db
+Desktop.ini
+.DS_Store
+*~
+*.swp
+
+# Python bytecode
+__pycache__/
+*.pyc
+
+# Vivado build artefacts
+.Xil/
+vivado_build/
+*.jou
+*.log

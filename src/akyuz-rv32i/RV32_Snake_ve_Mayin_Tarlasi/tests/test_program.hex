@@ -1,0 +1,64 @@
+// RV32I Test Program — Hand-assembled
+// Covers: ADDI, ADD, SUB, SW, LW, load-use hazard,
+//         BEQ (taken/not-taken), JAL, LUI, SLT, SLTU
+//
+// Expected register values at halt (PC=0x50):
+//   x1  = 5               (ADDI)
+//   x2  = 3               (ADDI)
+//   x3  = 8               (ADD)
+//   x4  = 2               (SUB)
+//   x5  = 64              (ADDI, dmem base)
+//   x6  = 8               (LW)
+//   x7  = 8               (LW)
+//   x8  = 13              (ADD after LW — load-use hazard)
+//   x9  = 8               (ADDI)
+//   x10 = 1               (BEQ taken, instruction at 0x2C skipped)
+//   x11 = 0x38            (JAL return address)
+//   x12 = 2               (JAL taken, instruction at 0x38 skipped)
+//   x13 = 0x00001000      (LUI 1)
+//   x14 = 0xFFFFFFFF      (ADDI -1)
+//   x15 = 1               (SLT: -1 < 5 signed  → 1)
+//   x16 = 0               (SLTU: 0xFFFFFFFF > 5 unsigned → 0)
+//
+// PC=0x00  addi x1,  x0, 5      x1  = 5
+00500093
+// PC=0x04  addi x2,  x0, 3      x2  = 3
+00300113
+// PC=0x08  add  x3,  x1, x2     x3  = 8
+002081B3
+// PC=0x0C  sub  x4,  x1, x2     x4  = 2
+40208233
+// PC=0x10  addi x5,  x0, 64     x5  = 64 (dmem address)
+04000293
+// PC=0x14  sw   x3,  0(x5)      dmem[64] = 8
+0032A023
+// PC=0x18  lw   x6,  0(x5)      x6  = 8
+0002A303
+// PC=0x1C  lw   x7,  0(x5)      x7  = 8  (load-use setup)
+0002A383
+// PC=0x20  add  x8,  x7, x1     x8  = 13 (load-use hazard test)
+00138433
+// PC=0x24  addi x9,  x0, 8      x9  = 8
+00800493
+// PC=0x28  beq  x9,  x3, +8     branch to 0x30 (TAKEN)
+00348463
+// PC=0x2C  addi x10, x0, 255    *** MUST BE SKIPPED by BEQ ***
+0FF00513
+// PC=0x30  addi x10, x0, 1      x10 = 1  (confirms branch taken)
+00100513
+// PC=0x34  jal  x11, +8         x11 = 0x38, jump to 0x3C
+008005EF
+// PC=0x38  addi x12, x0, 255    *** MUST BE SKIPPED by JAL ***
+0FF00613
+// PC=0x3C  addi x12, x0, 2      x12 = 2  (confirms JAL taken)
+00200613
+// PC=0x40  lui  x13, 1          x13 = 0x00001000
+000016B7
+// PC=0x44  addi x14, x0, -1     x14 = 0xFFFFFFFF
+FFF00713
+// PC=0x48  slt  x15, x14, x1    x15 = 1  (-1 < 5, signed)
+001727B3
+// PC=0x4C  sltu x16, x14, x1    x16 = 0  (0xFFFF...F > 5, unsigned)
+00173833
+// PC=0x50  jal  x0,  0          HALT (infinite loop to self)
+0000006F

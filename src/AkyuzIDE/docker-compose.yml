@@ -1,0 +1,22 @@
+services:
+  akyuz-ide:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: akyuzide-station
+    ports:
+      - "8000:8000"
+    environment:
+      - WORKSPACE_DIR=/app/workspace
+      - REMOTE_AI_HOST=http://host.docker.internal:11434
+      - AI_MODEL=qwen2.5-coder:14b
+    volumes:
+      - ./workspace:/app/workspace
+    restart: unless-stopped
+    networks:
+      - akyuzide-network
+
+
+networks:
+  akyuzide-network:
+    name: akyuzide-network

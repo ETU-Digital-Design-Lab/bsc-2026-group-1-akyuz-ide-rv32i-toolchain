@@ -1,0 +1,67 @@
+# ─── Vivado project artefacts ────────────────────────────────────────────────
+*.xpr
+*.xsa
+
+# Vivado managed sub-directories (generated, not source)
+.runs/
+.cache/
+.hw/
+.ip_user_files/
+.sim/           # Vivado's internal sim working dir — NOT the repo sim/ folder
+*.runs/
+*.cache/
+*.hw/
+*.ip_user_files/
+*.sim/
+
+# Vivado log / journal / report files
+*.jou
+*.log
+*.pb
+*.str
+*.rpt
+*.dcp
+*.wdb
+
+# Vivado SDK / HW export
+*.hdf
+*.xsa
+*.sdk/
+
+# Synthesis / implementation checkpoints and reports (generated)
+*_synth_*/
+*_impl_*/
+
+# ─── Bitstream output ────────────────────────────────────────────────────────
+# Uncomment the next two lines if you do NOT want to track bitstreams
+# *.bit
+# *.bin
+
+# ─── Backup / editor temp files ──────────────────────────────────────────────
+*.bak
+*.orig
+*.swp
+*.swo
+*~
+\#*\#
+
+# ─── Windows system files ────────────────────────────────────────────────────
+Thumbs.db
+Desktop.ini
+ehthumbs.db
+
+# ─── OS X ────────────────────────────────────────────────────────────────────
+.DS_Store
+
+# ─── Python bytecode (generate_font.py) ──────────────────────────────────────
+__pycache__/
+*.pyc
+*.pyo
+
+# ─── EXPLICITLY KEPT (listed here for documentation; no gitignore action) ────
+# rtl/*.v
+# rtl/nexys4.xdc
+# rtl/fonts/font8x16.hex
+# rtl/fonts/generate_font.py
+# sim/tb_rv32_core.v
+# tests/test_program.hex

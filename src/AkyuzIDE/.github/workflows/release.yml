@@ -1,0 +1,33 @@
+name: Release
+
+on:
+  push:
+    branches: [tahsin]
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Set version from run number
+        run: |
+          MINOR=$(date +%Y%m%d)
+          PATCH=${{ github.run_number }}
+          npm version "1.${MINOR}.${PATCH}" --no-git-tag-version --allow-same-version
+
+      - name: Build and publish to GitHub Releases
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: npm run release

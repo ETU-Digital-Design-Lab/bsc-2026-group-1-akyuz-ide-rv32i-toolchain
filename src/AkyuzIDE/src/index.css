@@ -1,0 +1,69 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg-darker:  #060a12;
+  --color-bg-main:    #0a0e17;
+  --color-bg-sidebar: #0d1422;
+  --color-bg-activity:#080c14;
+  --color-border-ide: #0e1e34;
+  --color-text-main:  #e2f0ff;
+  --color-text-dim:   #6a8fa8;
+  --color-accent-ide: #00d4ff;
+  --color-success-ide:#00e676;
+  --color-status-bg:  #007fa8;
+
+  --font-sans: "Inter Tight", "Inter", "Segoe UI", Tahoma, sans-serif;
+  --font-mono: "Fira Code", "JetBrains Mono", "Consolas", monospace;
+}
+
+@layer base {
+  body {
+    @apply bg-bg-darker text-text-main font-sans overflow-hidden h-screen;
+    background-image:
+      linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(0,212,255,0.15);
+    border: 2px solid transparent;
+    background-clip: content-box;
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(0,212,255,0.3);
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+}
+
+.code-mockup {
+  font-family: var(--font-mono);
+}
+
+.blue-text { color: #569cd6; }
+.green-text { color: #b5cea8; }
+.orange-text { color: #ce9178; }
+.purple-text { color: #c586c0; }
+
+/* ══════════════════════════════════════ Cream Theme (Invert) ════════════ */
+
+html[data-theme="cream"] {
+  filter: invert(1) hue-rotate(180deg) sepia(50%) brightness(0.93);
+}
+
+/* Re-invert images/videos so they look normal */
+html[data-theme="cream"] img,
+html[data-theme="cream"] video,
+html[data-theme="cream"] canvas {
+  filter: invert(1) hue-rotate(180deg) sepia(50%) brightness(0.93);
+}
+
+/* ── Smooth theme transition ────────────────────────────────────────────── */
+html {
+  transition: background-color 0.18s ease;
+}

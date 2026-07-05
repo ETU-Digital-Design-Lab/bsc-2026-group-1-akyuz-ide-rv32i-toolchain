@@ -1,0 +1,106 @@
+// PC=0x000  x1  = 1
+00100093
+// PC=0x004  x2  = 2
+00200113
+// PC=0x008  x3  = 3
+00300193
+// PC=0x00C  x4  = 4
+00400213
+// PC=0x010  x5  = 5
+00500293
+// PC=0x014  x6  = 6
+00600313
+// PC=0x018  x7  = 7
+00700393
+// PC=0x01C  x8  = 8
+00800413
+// PC=0x020  x9  = 9
+00900493
+// PC=0x024  x10 = 10 (0xA)
+00A00513
+// PC=0x028  x11 = 0xABCDE000
+ABCDE5B7
+// PC=0x02C  x16 = UART base 0x00020000
+00020837
+// PC=0x030  mv x17, x1
+00008893
+// PC=0x034  call print_hex32
+05000AEF
+// PC=0x038  mv x17, x2
+00010893
+// PC=0x03C  call print_hex32
+04800AEF
+// PC=0x040  mv x17, x3
+00018893
+// PC=0x044  call print_hex32
+04000AEF
+// PC=0x048  mv x17, x4
+00020893
+// PC=0x04C  call print_hex32
+03800AEF
+// PC=0x050  mv x17, x5
+00028893
+// PC=0x054  call print_hex32
+03000AEF
+// PC=0x058  mv x17, x6
+00030893
+// PC=0x05C  call print_hex32
+02800AEF
+// PC=0x060  mv x17, x7
+00038893
+// PC=0x064  call print_hex32
+02000AEF
+// PC=0x068  mv x17, x8
+00040893
+// PC=0x06C  call print_hex32
+01800AEF
+// PC=0x070  mv x17, x9
+00048893
+// PC=0x074  call print_hex32
+01000AEF
+// PC=0x078  mv x17, x10
+00050893
+// PC=0x07C  call print_hex32
+00800AEF
+// PC=0x080  halt: jal x0,0
+0000006F
+// PC=0x084  x18 = shift = 28
+01C00913
+// PC=0x088  x19 = x17 >> shift
+0128D9B3
+// PC=0x08C  x19 = nibble (0..15)
+00F9F993
+// PC=0x090  x20 = '0' + nibble
+03098A13
+// PC=0x094  x22 = nibble - 10
+FF698B13
+// PC=0x098  if nibble<10: skip addi below
+000B4463
+// PC=0x09C  x20 = 'A'-10 + nibble (A=65,10+55=65)
+03798A13
+// PC=0x0A0  call uart_byte
+020007EF
+// PC=0x0A4  shift -= 4
+FFC90913
+// PC=0x0A8  if shift>=0 loop
+FE0950E3
+// PC=0x0AC  x20 = '\r'
+00D00A13
+// PC=0x0B0  call uart_byte
+010007EF
+// PC=0x0B4  x20 = '\n'
+00A00A13
+// PC=0x0B8  call uart_byte
+008007EF
+// PC=0x0BC  return
+000A8067
+// PC=0x0C0  x22 = UART status
+00482B03
+// PC=0x0C4  x22 = tx_ready bit
+001B7B13
+// PC=0x0C8  if !ready: poll
+FE0B0CE3
+// PC=0x0CC  UART TX = x20
+01482023
+// PC=0x0D0  return
+00078067

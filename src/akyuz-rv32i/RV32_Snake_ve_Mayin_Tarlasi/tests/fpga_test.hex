@@ -1,0 +1,117 @@
+// fpga_test.hex — Basys 3 FPGA Peripheral Test Program
+//
+// Register map:
+//   x1 = 0x0002_0000  (peripheral base, via LUI x1, 0x20)
+//   x2 = scratch / UART status
+//   x3 = character to send
+//   x5 = switch value
+//
+// Peripheral offsets from x1:
+//   +0x00 = UART TX data   (write byte → transmit)
+//   +0x04 = UART TX status (read: bit0 = tx_ready)
+//   +0x08 = LED register   (write 16-bit)
+//   +0x0C = Switch register(read 16-bit)
+//
+// Program flow:
+//   1. LED ← 0xFFFF  (all LEDs on — visual check)
+//   2. UART send 'R','V','3','2','\r','\n'  (each polled)
+//   3. Loop: LED ← SW  (switch readback)
+//
+// Expected 7-seg after boot: 0x008C (switch loop PC)
+// UART output: "RV32\r\n" at 115200 baud 8N1
+//
+// === Phase 1: Init ===
+//
+// PC=0x00  lui  x1, 0x20        x1 = 0x0002_0000
+000200B7
+// PC=0x04  addi x2, x0, -1     x2 = 0xFFFFFFFF
+FFF00113
+// PC=0x08  sw   x2, 8(x1)      LED = 0xFFFF (all on)
+0020A423
+//
+// === Phase 2: UART send 'R' (0x52 = 82) ===
+//
+// PC=0x0C  addi x3, x0, 82
+05200193
+// PC=0x10  lw   x2, 4(x1)      read UART status
+0040A103
+// PC=0x14  andi x2, x2, 1      isolate tx_ready bit
+00117113
+// PC=0x18  beq  x2, x0, -8     if not ready → 0x10
+FE010CE3
+// PC=0x1C  sw   x3, 0(x1)      send 'R'
+0030A023
+//
+// === UART send 'V' (0x56 = 86) ===
+//
+// PC=0x20  addi x3, x0, 86
+05600193
+// PC=0x24  lw   x2, 4(x1)
+0040A103
+// PC=0x28  andi x2, x2, 1
+00117113
+// PC=0x2C  beq  x2, x0, -8     if not ready → 0x24
+FE010CE3
+// PC=0x30  sw   x3, 0(x1)      send 'V'
+0030A023
+//
+// === UART send '3' (0x33 = 51) ===
+//
+// PC=0x34  addi x3, x0, 51
+03300193
+// PC=0x38  lw   x2, 4(x1)
+0040A103
+// PC=0x3C  andi x2, x2, 1
+00117113
+// PC=0x40  beq  x2, x0, -8     if not ready → 0x38
+FE010CE3
+// PC=0x44  sw   x3, 0(x1)      send '3'
+0030A023
+//
+// === UART send '2' (0x32 = 50) ===
+//
+// PC=0x48  addi x3, x0, 50
+03200193
+// PC=0x4C  lw   x2, 4(x1)
+0040A103
+// PC=0x50  andi x2, x2, 1
+00117113
+// PC=0x54  beq  x2, x0, -8     if not ready → 0x4C
+FE010CE3
+// PC=0x58  sw   x3, 0(x1)      send '2'
+0030A023
+//
+// === UART send '\r' (0x0D = 13) ===
+//
+// PC=0x5C  addi x3, x0, 13
+00D00193
+// PC=0x60  lw   x2, 4(x1)
+0040A103
+// PC=0x64  andi x2, x2, 1
+00117113
+// PC=0x68  beq  x2, x0, -8     if not ready → 0x60
+FE010CE3
+// PC=0x6C  sw   x3, 0(x1)      send '\r'
+0030A023
+//
+// === UART send '\n' (0x0A = 10) ===
+//
+// PC=0x70  addi x3, x0, 10
+00A00193
+// PC=0x74  lw   x2, 4(x1)
+0040A103
+// PC=0x78  andi x2, x2, 1
+00117113
+// PC=0x7C  beq  x2, x0, -8     if not ready → 0x74
+FE010CE3
+// PC=0x80  sw   x3, 0(x1)      send '\n'
+0030A023
+//
+// === Phase 3: Switch → LED loop (infinite) ===
+//
+// PC=0x84  lw   x5, 12(x1)     x5 = switch register
+00C0A283
+// PC=0x88  sw   x5, 8(x1)      LED = switches
+0050A423
+// PC=0x8C  jal  x0, -8         loop → 0x84
+FFDFF06F

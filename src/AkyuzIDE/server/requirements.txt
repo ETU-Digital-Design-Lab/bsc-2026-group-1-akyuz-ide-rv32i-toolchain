@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+pydantic
+httpx
+pyserial
+python-multipart
+# Add standard toolchain if needed, though they are usually binaries in the container

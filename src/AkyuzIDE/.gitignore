@@ -1,0 +1,44 @@
+node_modules/
+build/
+dist/
+dist-electron/
+toolchain/
+workspace/
+coverage/
+.DS_Store
+*.log
+*.jou
+.env*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Claude Code - worktree ve yerel ayarlar repoya girmemeli
+.claude/
+
+# Electron çıktısı dist-electron/; kaynak electron/*.ts
+electron/main.js
+electron/preload.js
+
+# Eğitim — büyük dosyalar ve geçici dizinler
+training/checkpoints/
+training/train_env/
+training/logs/
+training/=*
+
+# Dataset — büyük veri dosyaları
+server/train_data/
+
+# Build çıktıları ve pip paketleri
+release/
+server/pypackages/
+
+# Harici kaynak kütüphaneleri (embedded git repos)
+server/hdlbits/solutions/
+server/picorv32/core/
+server/rtllm/v2/
+server/veridebug/mg_verilog/

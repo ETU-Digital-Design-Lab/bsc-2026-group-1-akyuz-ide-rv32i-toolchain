@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AkyuzIDE</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 100vw; height: 100vh;
+    background: #0a0e17;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    overflow: hidden;
+    user-select: none;
+  }
+
+  /* Circuit board background */
+  .bg-grid {
+    position: fixed; inset: 0; z-index: 0;
+    background-image:
+      linear-gradient(rgba(0,212,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,212,255,0.04) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  /* Animated corner traces */
+  .trace {
+    position: fixed; z-index: 1;
+    background: linear-gradient(90deg, transparent, rgba(0,212,255,0.3), transparent);
+    height: 1px;
+    animation: trace-scan 3s ease-in-out infinite;
+  }
+  .trace:nth-child(2) { animation-delay: 1.5s; }
+  @keyframes trace-scan {
+    0%   { width: 0; top: 20%; left: 0; opacity: 0; }
+    10%  { opacity: 1; }
+    50%  { width: 100%; top: 70%; left: 0; opacity: 0.6; }
+    90%  { opacity: 0; }
+    100% { width: 0; top: 90%; left: 100%; }
+  }
+
+  /* Corner brackets */
+  .corner { position: fixed; width: 24px; height: 24px; z-index: 2; }
+  .corner::before, .corner::after {
+    content: ''; position: absolute;
+    background: rgba(0,212,255,0.5);
+  }
+  .corner::before { width: 100%; height: 2px; }
+  .corner::after  { width: 2px; height: 100%; }
+  .corner.tl { top: 16px; left: 16px; }
+  .corner.tr { top: 16px; right: 16px; transform: scaleX(-1); }
+  .corner.bl { bottom: 16px; left: 16px; transform: scaleY(-1); }
+  .corner.br { bottom: 16px; right: 16px; transform: scale(-1); }
+
+  /* Chip node dots */
+  .nodes {
+    position: fixed; inset: 0; z-index: 1;
+    pointer-events: none;
+  }
+  .node {
+    position: absolute;
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: rgba(0,212,255,0.25);
+    animation: node-pulse 2s ease-in-out infinite;
+  }
+  @keyframes node-pulse {
+    0%, 100% { opacity: 0.2; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(1.5); }
+  }
+
+  /* Main content */
+  .content {
+    position: relative; z-index: 10;
+    display: flex; flex-direction: column;
+    align-items: center; gap: 0;
+  }
+
+  .logo-wrap {
+    position: relative;
+    width: 100px; height: 100px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 16px;
+  }
+
+  /* Spinning ring around logo */
+  .ring {
+    position: absolute; inset: -8px;
+    border-radius: 50%;
+    border: 1.5px solid transparent;
+    border-top-color: rgba(0,212,255,0.7);
+    border-right-color: rgba(0,212,255,0.2);
+    animation: spin 2s linear infinite;
+  }
+  .ring-outer {
+    position: absolute; inset: -16px;
+    border-radius: 50%;
+    border: 1px solid transparent;
+    border-bottom-color: rgba(0,212,255,0.3);
+    animation: spin 3s linear infinite reverse;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .logo {
+    width: 80px; height: 80px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 16px rgba(0,212,255,0.6));
+    animation: logo-glow 2s ease-in-out infinite;
+  }
+  @keyframes logo-glow {
+    0%, 100% { filter: drop-shadow(0 0 12px rgba(0,212,255,0.5)); }
+    50%       { filter: drop-shadow(0 0 24px rgba(0,212,255,0.9)); }
+  }
+
+  .app-name {
+    font-size: 28px; font-weight: 700; letter-spacing: 6px;
+    color: #ffffff;
+    text-shadow: 0 0 20px rgba(0,212,255,0.5);
+    margin-bottom: 4px;
+  }
+
+  .app-sub {
+    font-size: 10px; letter-spacing: 3px;
+    color: rgba(0,212,255,0.6);
+    text-transform: uppercase;
+    margin-bottom: 36px;
+  }
+
+  /* Progress bar */
+  .progress-wrap {
+    width: 260px;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+
+  .progress-track {
+    width: 100%; height: 2px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, rgba(0,212,255,0.3), #00d4ff);
+    border-radius: 2px;
+    width: 0%;
+    transition: width 0.4s ease;
+    box-shadow: 0 0 8px rgba(0,212,255,0.8);
+    position: relative;
+  }
+  .progress-fill::after {
+    content: '';
+    position: absolute; right: 0; top: -2px;
+    width: 4px; height: 6px;
+    background: #00d4ff;
+    border-radius: 1px;
+    box-shadow: 0 0 6px #00d4ff;
+  }
+
+  .status {
+    font-size: 10px; letter-spacing: 1px;
+    color: rgba(0,212,255,0.45);
+    text-align: left;
+    height: 14px;
+  }
+
+  /* Version badge */
+  .version {
+    position: fixed; bottom: 14px; right: 18px; z-index: 10;
+    font-size: 9px; letter-spacing: 1px;
+    color: rgba(255,255,255,0.15);
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="trace"></div>
+<div class="trace"></div>
+
+<div class="corner tl"></div>
+<div class="corner tr"></div>
+<div class="corner bl"></div>
+<div class="corner br"></div>
+
+<div class="nodes" id="nodes"></div>
+
+<div class="content">
+  <div class="logo-wrap">
+    <div class="ring-outer"></div>
+    <div class="ring"></div>
+    <img class="logo" src="./logo.png" alt="AkyuzIDE" />
+  </div>
+
+  <div class="app-name">AKYÜZIDE</div>
+  <div class="app-sub">RISC-V &nbsp;/&nbsp; FPGA &nbsp;/&nbsp; EDA</div>
+
+  <div class="progress-wrap">
+    <div class="progress-track">
+      <div class="progress-fill" id="bar"></div>
+    </div>
+    <div class="status" id="status">Başlatılıyor...</div>
+  </div>
+</div>
+
+<div class="version" id="ver">v1.20260515.5</div>
+
+<script>
+  // Random chip node dots
+  const container = document.getElementById('nodes');
+  for (let i = 0; i < 18; i++) {
+    const d = document.createElement('div');
+    d.className = 'node';
+    d.style.left = Math.random() * 100 + '%';
+    d.style.top  = Math.random() * 100 + '%';
+    d.style.animationDelay = (Math.random() * 2) + 's';
+    container.appendChild(d);
+  }
+
+  // Progress steps
+  const steps = [
+    { pct: 15, msg: 'Electron başlatılıyor...' },
+    { pct: 35, msg: 'Python ortamı hazırlanıyor...' },
+    { pct: 60, msg: 'Backend sunucu başlatılıyor...' },
+    { pct: 80, msg: 'Arayüz yükleniyor...' },
+    { pct: 95, msg: 'Neredeyse hazır...' },
+  ];
+
+  const bar    = document.getElementById('bar');
+  const status = document.getElementById('status');
+
+  let i = 0;
+  function next() {
+    if (i >= steps.length) return;
+    bar.style.width  = steps[i].pct + '%';
+    status.textContent = steps[i].msg;
+    i++;
+    setTimeout(next, 700 + Math.random() * 400);
+  }
+
+  // Version from IPC if available
+  if (window.ipcRenderer) {
+    window.ipcRenderer.invoke('app-version').then(v => {
+      if (v) document.getElementById('ver').textContent = 'v' + v;
+    }).catch(() => {});
+  }
+
+  setTimeout(next, 200);
+</script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+5-stage RISC-V pipeline’da load-use hazard icin forwarding + stall karar agacini
+8 maddeyle ozetle. Her madde tek cumle olsun.
+---
+RV32I’de JALR hedef hesaplamasini (PC+imm, LSB clear) 6 adimda acikla.
+Türkce anlat, teknik terimler ingilizce kalabilir.
+---
+Asagidaki RTL parcasinda senden sadece tek <tool_call> uret:
+read_file -> path: rtl/decoder.v
+(Metin sadece tool cagirisi; baska hicbir sey yok)
+---
+AkyuzIDE Agent icin: compile_verilog tool’unu cagir:
+files: ["rtl/cpu_top.v","tb/cpu_top_tb.v"]
+Sadece tek <tool_call> uret, baska metin yok.
+---
+Tool-calling hatasi simulasyonu:
+<tool_result>
+COMPILATION FAILED:
+rtl/alu.v:5: error: 'endmodule' found without 'module' keyword
+</tool_result>
+Buna uygun sekilde tek <tool_call> oner (read veya run_command) ve sadece tool cagirisi olsun.
+---
+Ask modu: Tool yok. Sadece aciklama. CSR talimatlarinin (csrrw/csrrs) temel farki nedir?
+3 madde, kisa, net.
+---
+Ask modu: M extension yokken carpma/bolme cagri nasil cozulur? (Yazilim/derleyici/illegal trap secenekleri) 5 madde.
+---
+Plan modu: 2 haftalik RV32I pipeline getiri plani. Markdown. Riskler, dogrulama, test maddeleri olsun.
+(Not: Sadece plan metni, tool cagirisi yok gibi dusun)
+---
+Hatali Icarus/iverilog ciktisi (simule):
+<tool_result>
+iverilog: rtl/broken.v:1: error: ... syntax error
+</tool_result>
+Buna gore en mantikli tek <tool_call> (read veya run_command) oner, baska hicbir metin yok.
+---
+Ayni benchmark tekrarlanabilir olsun diye: 5 cümlede load-store alignment ve misalignment sebeplerini açıkla.
+---
+3 model kıyasında sürpriz: signed load (LB/LH) ile unsigned load (LBU/LHU) decode farkı ve hazard etkileri, 6 madde.

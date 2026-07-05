@@ -1,0 +1,132 @@
+Archive member included to satisfy reference by file (symbol)
+
+/home/tahatahsinakyuz/2025.2/gnu/riscv/lin/bin/../riscv32-xilinx-elf/usr/lib/rv32i/ilp32/libgcc.a(div.o)
+                              /tmp/cco769Ew.o (__divsi3)
+
+There are no discarded input sections
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+IMEM             0x00000000         0x00002000         xrw
+DMEM             0x00010000         0x00001000         xrw
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+LOAD /tmp/cc2krIoS.o
+LOAD /tmp/cco769Ew.o
+LOAD /home/tahatahsinakyuz/2025.2/gnu/riscv/lin/bin/../riscv32-xilinx-elf/usr/lib/rv32i/ilp32/libgcc.a
+
+.note.gnu.build-id
+                0x00000000       0x24
+ .note.gnu.build-id
+                0x00000000       0x24 /tmp/cc2krIoS.o
+
+.text           0x00000024     0x1e0c
+ *(.text._start)
+ .text._start   0x00000024       0x10 /tmp/cc2krIoS.o
+                0x00000024                _start
+ *(.text*)
+ .text          0x00000034        0x0 /tmp/cc2krIoS.o
+ .text          0x00000034     0x1bf8 /tmp/cco769Ew.o
+                0x00000070                vga_cursor
+                0x00000094                vga_putc
+                0x000000c0                clear_screen
+                0x000000dc                draw_border
+                0x000001b0                draw_text
+                0x00000228                show_display_info
+                0x000003e8                show_settings
+                0x00000590                rng
+                0x000005cc                spawn_food
+                0x0000060c                show_score
+                0x00000680                redraw_game_screen
+                0x00000868                do_countdown
+                0x0000094c                game_over_screen
+                0x00000a5c                init_game
+                0x00000c54                play_snake
+                0x0000112c                ms_num_color
+                0x00001154                ms_wait_release
+                0x000011a4                ms_reset
+                0x00001334                ms_draw_cell
+                0x00001438                ms_draw_all
+                0x00001490                ms_show_flags
+                0x0000154c                ms_reveal
+                0x000016f4                ms_end_screen
+                0x00001818                play_minesweeper
+                0x00001b20                draw_menu
+                0x00001bcc                draw_menu_static
+ .text.startup  0x00001c2c      0x150 /tmp/cco769Ew.o
+                0x00001c2c                main
+ .text          0x00001d7c       0xb4 /home/tahatahsinakyuz/2025.2/gnu/riscv/lin/bin/../riscv32-xilinx-elf/usr/lib/rv32i/ilp32/libgcc.a(div.o)
+                0x00001d7c                __divsi3
+                0x00001d84                __hidden___udivsi3
+                0x00001d84                __udivsi3
+                0x00001dcc                __umodsi3
+                0x00001e00                __modsi3
+
+.rodata         0x00001e30      0x11a
+ *(.rodata*)
+ .rodata.str1.4
+                0x00001e30      0x11a /tmp/cco769Ew.o
+
+.srodata        0x00001f4c        0x5
+ .srodata       0x00001f4c        0x5 /tmp/cco769Ew.o
+
+.rela.dyn       0x00001f54        0x0
+ .rela.text._start
+                0x00001f54        0x0 /tmp/cc2krIoS.o
+
+.data           0x00010000        0xc
+ *(.data*)
+ .data          0x00010000        0x0 /tmp/cc2krIoS.o
+ .data          0x00010000        0x0 /tmp/cco769Ew.o
+ .data          0x00010000        0x0 /home/tahatahsinakyuz/2025.2/gnu/riscv/lin/bin/../riscv32-xilinx-elf/usr/lib/rv32i/ilp32/libgcc.a(div.o)
+ *(.sdata*)
+ .sdata         0x00010000        0xc /tmp/cco769Ew.o
+                0x00010004                g_delay
+                0x00010008                speed_lvl
+
+.bss            0x0001000c      0x498
+                0x0001000c                        __bss_start = .
+ *(.bss*)
+ .bss           0x0001000c        0x0 /tmp/cc2krIoS.o
+ .bss           0x0001000c      0x46d /tmp/cco769Ew.o
+                0x0001000c                snake_y
+                0x0001019c                snake_x
+                0x0001032c                ms_mine
+                0x00010380                ms_open
+                0x000103d4                ms_flag
+                0x00010428                ms_adj
+ .bss           0x00010479        0x0 /home/tahatahsinakyuz/2025.2/gnu/riscv/lin/bin/../riscv32-xilinx-elf/usr/lib/rv32i/ilp32/libgcc.a(div.o)
+ *(.sbss*)
+ *fill*         0x00010479        0x3 
+ .sbss          0x0001047c       0x28 /tmp/cco769Ew.o
+                0x0001047c                ms_flags
+                0x00010480                ms_remaining
+                0x00010484                ms_cy
+                0x00010488                ms_cx
+                0x0001048c                game_over
+                0x00010490                score
+                0x00010494                food_y
+                0x00010498                food_x
+                0x0001049c                dir
+                0x000104a0                snake_len
+ *(COMMON)
+                0x000104a4                        __bss_end = .
+                0x000104a4                        . = ALIGN (0x4)
+                0x00010ffc                        __stack_top = ((ORIGIN (DMEM) + LENGTH (DMEM)) - 0x4)
+OUTPUT(/tmp/fw_test.elf elf32-littleriscv)
+
+.riscv.attributes
+                0x00000000       0x1c
+ .riscv.attributes
+                0x00000000       0x1a /tmp/cc2krIoS.o
+ .riscv.attributes
+                0x0000001a       0x1c /tmp/cco769Ew.o
+ .riscv.attributes
+                0x00000036       0x1a /home/tahatahsinakyuz/2025.2/gnu/riscv/lin/bin/../riscv32-xilinx-elf/usr/lib/rv32i/ilp32/libgcc.a(div.o)
+
+.comment        0x00000000       0x12
+ .comment       0x00000000       0x12 /tmp/cco769Ew.o
+                                 0x13 (size before relaxing)
