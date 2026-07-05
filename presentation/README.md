@@ -15,4 +15,9 @@ Bu klasör, bitirme projesi sunumu/posteri için ayrılmıştır (örn. `sunum.p
 | `agent_demo_fpga_secimi.jpeg` | Agent ile FPGA hedef kartı (Basys 3 / Arty A7-35T / Nexys A7-100T) seçimi diyaloğu. |
 | `akyuzserver_admin_paneli.jpg` | Uzak Ollama modellerine erişimi yöneten AkyuzServer yönetim panelinin ekran görüntüsü (CPU/RAM/GPU/disk durumu, model yönetimi). |
 
-Sunum dosyası (`.pptx`/`.pdf`) ve poster henüz eklenmedi.
+### Sunum dosyaları
+
+| Dosya | Açıklama |
+|---|---|
+| `final_sunum.pptx` | Bitirme projesi final sunumu (RISC-V & AkyuzIDE). |
+| `ara_sunum_1_donem.pdf` | Birinci dönem sonunda yapılan ara sunum/rapor. |
