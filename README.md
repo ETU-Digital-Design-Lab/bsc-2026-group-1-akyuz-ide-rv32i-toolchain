@@ -155,19 +155,24 @@ Kod incelemesi sırasında tespit edilen ve ilgili alt README'lerde ayrıntılan
 ```
 .
 ├── README.md                  # Bu dosya — projenin tek ve ana giriş noktası
-├── report.pdf                  # Nihai bitirme projesi raporu (EKLENECEK)
+├── report.pdf                  # Nihai bitirme projesi raporu
 ├── src/
 │   ├── AkyuzIDE/                # IDE kaynak kodu (React/Vite + FastAPI + Electron), kendi README.md'si var
 │   └── akyuz-rv32i/             # RV32I çekirdek prototipleri (3 alt klasör), kendi README.md'si var
-├── docs/                       # Proje geneli dokümantasyon (bkz. docs/README.md)
-├── simulations/                 # Konsolide simülasyon çıktıları (bkz. simulations/README.md)
-├── results/                     # Sentez/timing/power sonuçları (bkz. results/README.md)
-└── presentation/                # Sunum/poster dosyaları (bkz. presentation/README.md)
+├── docs/
+│   ├── diyagramlar/              # Mimari/iş akışı diyagramları, Basys3 referans fotoğrafları
+│   └── proje-planlama/           # İş paketi zaman çizelgesi (TÜBİTAK 2209)
+├── simulations/                 # Konsolide simülasyon çıktıları (bkz. simulations/README.md — henüz boş)
+├── results/
+│   ├── demo-fotograflari/        # Gerçek donanım üzerinde çalışan sistemin fotoğrafları
+│   └── egitim-metrikleri/        # AkyuzIDE agent fine-tuning eğitim/TensorBoard sonuçları
+└── presentation/
+    └── ekran-goruntuleri/         # AkyuzIDE tanıtım/demo ekran görüntüleri
 ```
 
-Alt klasörlerdeki README'ler (`src/AkyuzIDE/README.md`, `src/akyuz-rv32i/README.md` ve üç prototipin kendi README'leri), burada özetlenen her konuyu çok daha ayrıntılı olarak (mimari, register haritaları, dosya dosya kod açıklaması, kurulum adımları) ele alır — derinlemesine bilgi için bu belgelere bakın.
+Alt klasörlerdeki README'ler (`src/AkyuzIDE/README.md`, `src/akyuz-rv32i/README.md` ve üç prototipin kendi README'leri), burada özetlenen her konuyu çok daha ayrıntılı olarak (mimari, register haritaları, dosya dosya kod açıklaması, kurulum adımları) ele alır — derinlemesine bilgi için bu belgelere bakın. Görsellerin açıklamaları için `docs/README.md`, `results/README.md` ve `presentation/README.md` dosyalarına bakın.
 
-> **`report.pdf`, `simulations/`, `results/`, `presentation/` klasörleri şu an iskelet/boş durumdadır** — her birinin içine ne konması gerektiği ilgili klasördeki README.md'de açıklanmıştır.
+> **`simulations/` klasörü şu an boş** — içine ne konması gerektiği `simulations/README.md`'de açıklanmıştır.
 
 ---
 
