@@ -22,5 +22,4 @@ Alt projelere özgü teknik dokümantasyon zaten kendi klasörlerinde bulunuyor,
 | Dosya | Açıklama |
 |---|---|
 | `is_paketleri_zaman_cizelgesi.jpg` | Proje iş paketlerinin (WP1: Literatür/TÜBİTAK hazırlığı, WP2: İşlemci çekirdeği, WP3: AkyuzIDE yazılımı, WP4: FPGA sentez/doğrulama, WP5: Raporlama/poster) Ekim 2025 – Haziran 2026 arası zaman çizelgesi. |
-
-TÜBİTAK 2209 raporu eklendiğinde bu klasöre (`proje-planlama/`) konacaktır.
+| `TUBITAK_2209_Raporu.pdf` | Projenin TÜBİTAK 2209-A (Üniversite Öğrencileri Araştırma Projeleri Destekleme Programı) kapsamında hazırlanan araştırma raporu. |
